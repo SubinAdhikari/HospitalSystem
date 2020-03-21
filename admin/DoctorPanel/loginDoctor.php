@@ -36,7 +36,7 @@ if(checkDoctorLogin()){
 <body class="lock">
     <div class="lock-header">
         <!-- BEGIN LOGO -->
-        <a class="center" id="logo" href="loginadmin.php">
+        <a class="center" id="logo" href="index.php">
             <img class="center" alt="logo" src="../ReceptionPanel/img/logo.png">
         </a>
         <!-- END LOGO -->

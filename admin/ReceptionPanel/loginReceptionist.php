@@ -35,7 +35,7 @@ if(checkUserLogin()){
 <body class="lock">
     <div class="lock-header">
         <!-- BEGIN LOGO -->
-        <a class="center" id="logo" href="index.html">
+        <a class="center" id="logo" href="index.php">
             <img class="center" alt="logo" src="img/logo.png">
         </a>
         <!-- END LOGO -->

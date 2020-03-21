@@ -114,10 +114,10 @@ include 'layouts/sidebar.php';
                             <tr class="odd gradeX">
                                 <td><input type="checkbox" class="checkboxes" value="1" /></td>
                                 <td><?php echo $key['patient_reg_no']; ?></td>
-                                <td class="hidden-phone"><a href="patientdetails.php?ref=<?php echo $key['patient_reg_no'];?>"><?php echo $key['patient_name']; ?></a></td>
+                                <td class="hidden-phone"><?php echo $key['patient_name']; ?></td>
                                 <td class="hidden-phone"><?php echo $key['time_of_entry']; ?></td>
 
-                                <td class="hidden-phone"><span class="label label-success">Approved</span></td>
+                                <td class="hidden-phone"><a href="patientdetails.php?ref=<?php echo $key['patient_reg_no'];?>"><span class="label label-success">Details</span></a></td>
                             </tr>
                             <?php } ?> 
                             </tbody>

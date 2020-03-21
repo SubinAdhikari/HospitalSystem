@@ -20,6 +20,28 @@ $oldPatientDetails=getPatientDetails($conn,$ref);
 // 	if(!checkUserLogin()){ 
 // 	Redirect('loginReceptionist.php');
 // } 
+
+// Select Fee that has been already paid
+$feePaidAlready=0;
+$selectFeeAlreadyPaid=selectFeePaidAlready($conn,$ref);
+foreach($selectFeeAlreadyPaid as $key){
+    $feePaidAlready=$feePaidAlready+$key['fees_paid'];
+}
+
+// echo $feePaidAlready;
+
+
+// Select Fees to be paid
+$sum=0;
+$FeeToBePaidByPatient=selectFeeOfPatient($conn,$ref);
+// print_r($FeeToBePaidByPatient);
+
+foreach($FeeToBePaidByPatient as $key){
+    $sum=$sum+$key['price_of_checkup'];
+}
+$remainingBalance=$sum-$feePaidAlready;
+//  echo $remainingBalance;
+
 ?>
    <!-- BEGIN CONTAINER -->
    <div id="container" class="row-fluid">
@@ -46,6 +68,7 @@ include 'layouts/sidebar.php';
          <!-- BEGIN PAGE CONTAINER-->
          <div class="container-fluid">
             <!-- BEGIN PAGE HEADER-->   
+            
             <div class="row-fluid">
                <div class="span12">
                    <!-- BEGIN THEME CUSTOMIZER-->
@@ -96,7 +119,7 @@ include 'layouts/sidebar.php';
             
 
 
-
+            <h1><span style="color:red;">Remaining Balance To Pay:<?php echo $remainingBalance; ?></span></h1>
 
 
 
@@ -298,7 +321,7 @@ include 'layouts/sidebar.php';
    <script src="../ReceptionPanel/js/home-chartjs.js"></script>
 
    <!-- END JAVASCRIPTS -->   
-</body>
+</body> 
 <!-- END BODY -->
 </html>
 <?php
@@ -319,5 +342,11 @@ if(isset($_POST['submitbtn'])){
         }
     
 }
+
+
+
+
+
+
 
 ?>
