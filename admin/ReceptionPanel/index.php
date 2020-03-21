@@ -110,14 +110,14 @@ include 'layouts/sidebar.php';
                             <div class="status">Patient Details</div>
                         </a>
                     </div>
-                    <!-- <div class="metro-nav-block nav-block-green double">
-                        <a data-original-title="" href="#">
+                    <div class="metro-nav-block nav-block-green double">
+                        <a data-original-title="" href="CheckIfDoctorIsInLeave.php">
                             <i class="icon-eye-open"></i>
                             <div class="info">+897</div>
-                            <div class="status">Unique Visitor</div>
+                            <div class="status">Doctor In Leave</div>
                         </a>
                     </div>
-                    <div class="metro-nav-block nav-block-red">
+                   <!--  <div class="metro-nav-block nav-block-red">
                         <a data-original-title="" href="#">
                             <i class="icon-bar-chart"></i>
                             <div class="info">+288</div>

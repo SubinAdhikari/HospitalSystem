@@ -310,6 +310,8 @@ if(isset($_POST['submitbtn'])){
         echo '<script language="javascript">';
         echo 'alert("successfully Added Patient details")';
         echo '</script>';
+
+        
         }else{
             echo '<script language="javascript">';
             echo 'alert("Failed Adding Patient details")';

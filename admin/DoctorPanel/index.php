@@ -97,20 +97,20 @@ include 'layouts/sidebar.php';
                         </a>
                     </div>
                     <div class="metro-nav-block nav-olive">
-                        <a data-original-title="" href="#">
+                        <a data-original-title="" href="RequestLeave.php">
                             <i class="icon-tags"></i>
                             <div class="info">+970</div>
                             <div class="status">Take Leave Application</div>
                         </a>
                     </div>
-                    <!-- <div class="metro-nav-block nav-block-yellow">
-                        <a data-original-title="" href="#">
+                    <div class="metro-nav-block nav-block-yellow">
+                        <a data-original-title="" href="checkLeaveApplicationStatus.php">
                             <i class="icon-comments-alt"></i>
                             <div class="info">49</div>
-                            <div class="status">View Patient Details</div>
+                            <div class="status">Leave Application Status</div>
                         </a>
                     </div>
-                    <div class="metro-nav-block nav-block-green double">
+                   <!--  <div class="metro-nav-block nav-block-green double">
                         <a data-original-title="" href="#">
                             <i class="icon-eye-open"></i>
                             <div class="info">+897</div>

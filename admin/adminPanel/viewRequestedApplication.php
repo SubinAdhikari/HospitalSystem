@@ -2,17 +2,7 @@
 
 <!-- HEADER HERE -->
 <?php
-
-
-
-
 include 'layouts/header.php';
-
-
-// session_start();
-// 	if(!checkUserLogin()){ 
-// 	Redirect('loginReceptionist.php');
-// } 
 ?>
    <!-- BEGIN CONTAINER -->
    <div id="container" class="row-fluid">
@@ -58,7 +48,7 @@ include 'layouts/sidebar.php';
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                    Admin Dashboard
+                   View Patient Details
                    </h3>
                    <ul class="breadcrumb">
                        <li>
@@ -70,7 +60,7 @@ include 'layouts/sidebar.php';
                            <span class="divider">/</span>
                        </li>
                        <li class="active">
-                        Admin Dashboard
+                           View Patient Details
                        </li>
                        <li class="pull-right search-wrap">
                            <form action="search_result.html" class="hidden-phone">
@@ -86,86 +76,58 @@ include 'layouts/sidebar.php';
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row-fluid">
-                <!--BEGIN METRO STATES-->
-                <div class="metro-nav">
-                    <div class="metro-nav-block nav-block-orange">
-                        <a data-original-title="" href="addReceptionist.php">
-                            <i class="icon-user"></i>
-                            <div class="info">321</div>
-                            <div class="status">Add New Receptionist</div>
-                        </a>
+            
+         
+
+<!-- BEGIN ADVANCED TABLE widget-->
+<div class="row-fluid">
+                <div class="span12">
+                <!-- BEGIN EXAMPLE TABLE widget-->
+                <div class="widget red">
+                    <div class="widget-title">
+                        <h4><i class="icon-reorder"></i> Dynamic Table</h4>
+                            <span class="tools">
+                                <a href="javascript:;" class="icon-chevron-down"></a>
+                                <a href="javascript:;" class="icon-remove"></a>
+                            </span>
                     </div>
-                    <div class="metro-nav-block nav-olive">
-                        <a data-original-title="" href="addDoctor.php">
-                            <i class="icon-tags"></i>
-                            <div class="info">+970</div>
-                            <div class="status">Add New Doctor</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-yellow">
-                        <a data-original-title="" href="viewPatientDetails.php">
-                            <i class="icon-comments-alt"></i>
-                            <div class="info">49</div>
-                            <div class="status">View Patient Details</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-green double">
-                        <a data-original-title="" href="viewEmployeesDetails.php">
-                            <i class="icon-eye-open"></i>
-                            <div class="info">+897</div>
-                            <div class="status">View Employees Details</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-red">
-                        <a data-original-title="" href="viewRequestedApplication.php">
-                            <i class="icon-bar-chart"></i>
-                            <div class="info">+288</div>
-                            <div class="status">Requested Leave Application</div>
-                        </a>
+                    <div class="widget-body">
+                    <table class="table table-striped table-bordered" id="sample_1">
+                            <thead>
+                            <tr>
+                                <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" /></th>                               
+                                <th class="hidden-phone">Doctor Name</th>
+                                <th class="hidden-phone">Date For Leave</th>
+                                <th class="hidden-phone">Details</th>
+                            </tr>
+                            </thead> 
+                            <tbody>
+                            <?php
+                                $result=ViewAllLeaveApplication($conn);
+                                foreach($result as $key){                                
+                                ?>
+                            <tr class="odd gradeX">
+                                <td><input type="checkbox" class="checkboxes" value="1" /></td>                               
+                                <td class="hidden-phone"><?php echo $key['doctor_name']; ?></td>
+                                <td class="center hidden-phone"><?php echo $key['date_for_leave']; ?></td>
+                                <td class="hidden-phone"><a href="leaveApplicationDetails.php?ref=<?php echo $key['doctor_name'];?>"><span class="label label-success">Details</span></a></td>
+                            </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="metro-nav">
-                    <div class="metro-nav-block nav-light-purple">
-                        <a data-original-title="" href="feeCollectedTillDate.php">
-                            <i class="icon-shopping-cart"></i>
-                            <div class="info">29</div>
-                            <div class="status">Fee Collected till date</div>
-                        </a>
-                    </div>
-                    <!-- <div class="metro-nav-block nav-light-blue double">
-                        <a data-original-title="" href="#">
-                            <i class="icon-tasks"></i>
-                            <div class="info">$37624</div>
-                            <div class="status">Stock</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-light-green">
-                        <a data-original-title="" href="#">
-                            <i class="icon-envelope"></i>
-                            <div class="info">123</div>
-                            <div class="status">Messages</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-light-brown">
-                        <a data-original-title="" href="#">
-                            <i class="icon-remove-sign"></i>
-                            <div class="info">34</div>
-                            <div class="status">Cancelled</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-grey ">
-                        <a data-original-title="" href="#">
-                            <i class="icon-external-link"></i>
-                            <div class="info">$53412</div>
-                            <div class="status">Total Profit</div>
-                        </a>
-                    </div> -->
+                <!-- END EXAMPLE TABLE widget-->
                 </div>
-                <div class="space10"></div>
-                <!--END METRO STATES-->
             </div>
-           
+
+            <!-- END ADVANCED TABLE widget-->
+
+
+
+
+
+            
 
             <!-- END PAGE CONTENT-->         
          </div>
@@ -211,6 +173,26 @@ include 'layouts/sidebar.php';
    <script src="../ReceptionPanel/js/sparkline-chart.js"></script>
    <script src="../ReceptionPanel/js/home-page-calender.js"></script>
    <script src="../ReceptionPanel/js/home-chartjs.js"></script>
+
+   <!-- END JAVASCRIPTS -->   
+
+    <!-- BEGIN JAVASCRIPTS -->
+   <!-- Load javascripts at bottom, this will reduce page load time -->
+   <script src="../ReceptionPanel/js/jquery.blockui.js"></script>
+   <!-- ie8 fixes -->
+   <!--[if lt IE 9]>
+   <script src="js/excanvas.js"></script>
+   <script src="js/respond.js"></script>
+   <![endif]-->
+   <script type="text/javascript" src="../ReceptionPanel/assets/uniform/jquery.uniform.min.js"></script>
+   <script type="text/javascript" src="../ReceptionPanel/assets/data-tables/jquery.dataTables.js"></script>
+   <script type="text/javascript" src="../ReceptionPanel/assets/data-tables/DT_bootstrap.js"></script>
+
+
+   <!--common script for all pages-->
+
+   <!--script for this page only-->
+   <script src="../ReceptionPanel/js/dynamic-table.js"></script>
 
    <!-- END JAVASCRIPTS -->   
 </body>

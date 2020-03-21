@@ -7,7 +7,9 @@
 
 
 include 'layouts/header.php';
-
+$ref=$_GET['ref'];
+$leaveDetails=getDetailsOfLeaveRequest($conn,$ref);
+// print_r($leaveDetails);
 
 // session_start();
 // 	if(!checkUserLogin()){ 
@@ -58,7 +60,7 @@ include 'layouts/sidebar.php';
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                    Admin Dashboard
+                    Doctor Dashboard
                    </h3>
                    <ul class="breadcrumb">
                        <li>
@@ -70,7 +72,7 @@ include 'layouts/sidebar.php';
                            <span class="divider">/</span>
                        </li>
                        <li class="active">
-                        Admin Dashboard
+                        Doctor Dashboard
                        </li>
                        <li class="pull-right search-wrap">
                            <form action="search_result.html" class="hidden-phone">
@@ -86,85 +88,62 @@ include 'layouts/sidebar.php';
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+           
+
+
+
             <div class="row-fluid">
-                <!--BEGIN METRO STATES-->
-                <div class="metro-nav">
-                    <div class="metro-nav-block nav-block-orange">
-                        <a data-original-title="" href="addReceptionist.php">
-                            <i class="icon-user"></i>
-                            <div class="info">321</div>
-                            <div class="status">Add New Receptionist</div>
-                        </a>
+                <div class="span12">
+                    <!-- BEGIN  widget-->
+                    <div class="widget yellow">
+                        <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> CKEditor</h4>
+                        <span class="tools">
+                           <a href="javascript:;" class="icon-chevron-down"></a>
+                           <a href="javascript:;" class="icon-remove"></a>
+                           </span>
+                        </div>
+                        <div class="widget-body form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" method="POST" class="form-horizontal">
+                                <div class="control-group">
+                                    
+                                    <label class="control-label">CKEditor</label>
+                                    <div class="control-group ">
+                                    <div class="controls">
+                                        <input class="span6 " id="cemail" type="hidden" name="doctor_name" value="<?php echo $leaveDetails['doctor_name']; ?>"  readonly />
+                                    </div>
+                                </div>
+
+                                <div class="control-group ">
+                                    <label for="cemail" class="control-label">Date for leave</label>
+                                    <div class="controls">
+                                        <input class="span6 " id="cemail" type="date" value="<?php echo $leaveDetails['date_for_leave']; ?>"  name="date_for_leave" required/>
+                                    </div>
+                                </div>
+
+                                    <div class="controls">
+                                        <textarea class="span12 ckeditor" name="application" rows="6"><?php echo $leaveDetails['application'];?></textarea>
+                                        <div class="form-actions">
+                                    <button class="btn btn-success" name="acceptbtn" type="submit">Accept Application</button>
+                                    <button class="btn btn-warning" name="rejectbtn" type="submit">Decline Application</button>
+                                </div>
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
                     </div>
-                    <div class="metro-nav-block nav-olive">
-                        <a data-original-title="" href="addDoctor.php">
-                            <i class="icon-tags"></i>
-                            <div class="info">+970</div>
-                            <div class="status">Add New Doctor</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-yellow">
-                        <a data-original-title="" href="viewPatientDetails.php">
-                            <i class="icon-comments-alt"></i>
-                            <div class="info">49</div>
-                            <div class="status">View Patient Details</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-green double">
-                        <a data-original-title="" href="viewEmployeesDetails.php">
-                            <i class="icon-eye-open"></i>
-                            <div class="info">+897</div>
-                            <div class="status">View Employees Details</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-red">
-                        <a data-original-title="" href="viewRequestedApplication.php">
-                            <i class="icon-bar-chart"></i>
-                            <div class="info">+288</div>
-                            <div class="status">Requested Leave Application</div>
-                        </a>
-                    </div>
+                    <!-- END EXTRAS widget-->
                 </div>
-                <div class="metro-nav">
-                    <div class="metro-nav-block nav-light-purple">
-                        <a data-original-title="" href="feeCollectedTillDate.php">
-                            <i class="icon-shopping-cart"></i>
-                            <div class="info">29</div>
-                            <div class="status">Fee Collected till date</div>
-                        </a>
-                    </div>
-                    <!-- <div class="metro-nav-block nav-light-blue double">
-                        <a data-original-title="" href="#">
-                            <i class="icon-tasks"></i>
-                            <div class="info">$37624</div>
-                            <div class="status">Stock</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-light-green">
-                        <a data-original-title="" href="#">
-                            <i class="icon-envelope"></i>
-                            <div class="info">123</div>
-                            <div class="status">Messages</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-light-brown">
-                        <a data-original-title="" href="#">
-                            <i class="icon-remove-sign"></i>
-                            <div class="info">34</div>
-                            <div class="status">Cancelled</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-grey ">
-                        <a data-original-title="" href="#">
-                            <i class="icon-external-link"></i>
-                            <div class="info">$53412</div>
-                            <div class="status">Total Profit</div>
-                        </a>
-                    </div> -->
-                </div>
-                <div class="space10"></div>
-                <!--END METRO STATES-->
             </div>
+
+
+            
+
+
+
            
 
             <!-- END PAGE CONTENT-->         
@@ -213,6 +192,54 @@ include 'layouts/sidebar.php';
    <script src="../ReceptionPanel/js/home-chartjs.js"></script>
 
    <!-- END JAVASCRIPTS -->   
+
+
+
+   <!-- EDITOR JAVASCRIPT -->
+   <!-- <script src="js/jquery-1.8.2.min.js"></script> -->
+   <script type="text/javascript" src="../ReceptionPanel/assets/ckeditor/ckeditor.js"></script>
+   <!-- <script type="text/javascript" src="assets/bootstrap/js/bootstrap-fileupload.js"></script>
+   <script src="js/jquery.blockui.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <script src="js/jQuery.dualListBox-1.3.js" language="javascript" type="text/javascript"></script> -->
+
+
+   <!-- <script src="js/form-component.js"></script> -->
+
+   <script language="javascript" type="text/javascript">
+
+       $(function() {
+
+           $.configureBoxes();
+
+       });
+
+   </script>
+
+
+   <!-- END EDITOR JAVASCRIPT -->
 </body>
 <!-- END BODY -->
 </html>
+<?php
+if(isset($_POST['acceptbtn'])){
+    if(LeaveApplicationGranted($conn,$_POST)){
+        delete_leave_application_request($conn,$ref);
+
+        echo '<script language="javascript">';
+        echo 'alert("Leave Application Granted")';
+        echo '</script>';
+    }
+}
+if(isset($_POST['rejectbtn'])){
+    if(LeaveApplicationRejected($conn,$_POST)){
+        delete_leave_application_request($conn,$ref);
+        
+        echo '<script language="javascript">';
+        echo 'alert("Leave Application Rejected")';
+        echo '</script>';
+    }
+}
+
+
+?>

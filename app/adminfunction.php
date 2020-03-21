@@ -192,4 +192,86 @@ function selectFeeCollectedTable($conn){
  	$stmtSelect->setFetchMode(PDO::FETCH_ASSOC);
  	return $stmtSelect->fetchAll();
 }
+function getlastIdOfPatient($conn){
+    $stmtSelect=$conn->prepare("SELECT reg_no FROM patient_table ORDER BY reg_no DESC LIMIT 1 ");
+    $stmtSelect->execute();
+ 	$stmtSelect->setFetchMode(PDO::FETCH_ASSOC);
+ 	return $stmtSelect->fetch();
+}
+function sendLeaveApplication($conn,$data){
+    $stmtinsert=$conn->prepare("INSERT INTO leave_application_request (`doctor_name`,`application`,`date_for_leave`) VALUES (:doctor_name,:application,:date_for_leave)");
+    $stmtinsert->bindParam(':doctor_name', $data['doctor_name']);
+    $stmtinsert->bindParam(':application', $data['application']);
+    $stmtinsert->bindParam(':date_for_leave', $data['date_for_leave']);
+	if ($stmtinsert->execute()) {
+		return true;
+	}
+	return false;
+
+}
+function ViewAllLeaveApplication($conn){
+    $stmtSelect=$conn->prepare("SELECT * FROM leave_application_request");
+    $stmtSelect->execute();
+ 	$stmtSelect->setFetchMode(PDO::FETCH_ASSOC);
+ 	return $stmtSelect->fetchAll();
+}
+function getDetailsOfLeaveRequest($conn,$ref){
+    $stmtSelect=$conn->prepare("SELECT * FROM leave_application_request WHERE doctor_name=:doctor_name");
+    $stmtSelect->bindParam(':doctor_name',$ref);
+    $stmtSelect->execute();
+ 	$stmtSelect->setFetchMode(PDO::FETCH_ASSOC);
+ 	return $stmtSelect->fetch();
+}
+function LeaveApplicationGranted($conn,$data){
+    $stmtinsert=$conn->prepare("INSERT INTO accepted_leave_request (`doctor_name`,`application`,`date_for_leave`) VALUES (:doctor_name,:application,:date_for_leave)");
+    $stmtinsert->bindParam(':doctor_name', $data['doctor_name']);
+    $stmtinsert->bindParam(':application', $data['application']);
+    $stmtinsert->bindParam(':date_for_leave', $data['date_for_leave']);
+	if ($stmtinsert->execute()) {
+
+		return true;
+	}
+	return false;
+
+}
+function LeaveApplicationRejected($conn,$data){
+    $stmtinsert=$conn->prepare("INSERT INTO rejected_leave_request (`doctor_name`,`application`,`date_for_leave`) VALUES (:doctor_name,:application,:date_for_leave)");
+    $stmtinsert->bindParam(':doctor_name', $data['doctor_name']);
+    $stmtinsert->bindParam(':application', $data['application']);
+    $stmtinsert->bindParam(':date_for_leave', $data['date_for_leave']);
+	if ($stmtinsert->execute()) {
+        
+		return true;
+	}
+	return false;
+
+}
+function  delete_leave_application_request($conn,$ref){
+    $stmtdelete=$conn->prepare("DELETE FROM leave_application_request WHERE doctor_name=:doctor_name");
+    $stmtdelete->bindParam(':doctor_name', $ref);
+    $stmtdelete->execute();
+}
+function ViewAcceptedLeaveRequest($conn,$todayDate){
+    $stmtSelect=$conn->prepare("SELECT doctor_name FROM accepted_leave_request WHERE date_for_leave=:date_for_leave");
+    $stmtSelect->bindParam(':date_for_leave',$todayDate);
+    $stmtSelect->execute();
+ 	$stmtSelect->setFetchMode(PDO::FETCH_ASSOC);
+ 	return $stmtSelect->fetchAll();
+}
+function ViewAcceptedLeaveRequestForDoctorPanel($conn,$todayDate,$doctorname){
+    $stmtSelect=$conn->prepare("SELECT doctor_name,date_for_leave FROM accepted_leave_request WHERE date_for_leave=:date_for_leave && doctor_name=:doctor_name");
+    $stmtSelect->bindParam(':date_for_leave',$todayDate);
+    $stmtSelect->bindParam(':doctor_name',$doctorname);
+    $stmtSelect->execute();
+ 	$stmtSelect->setFetchMode(PDO::FETCH_ASSOC);
+ 	return $stmtSelect->fetch();
+}
+function ViewRejectedLeaveRequestForDoctorPanel($conn,$todayDate,$doctorname){
+    $stmtSelect=$conn->prepare("SELECT * FROM rejected_leave_request WHERE date_for_leave=:date_for_leave && doctor_name=:doctor_name");
+    $stmtSelect->bindParam(':date_for_leave',$todayDate);
+    $stmtSelect->bindParam(':doctor_name',$doctorname);
+    $stmtSelect->execute();
+ 	$stmtSelect->setFetchMode(PDO::FETCH_ASSOC);
+ 	return $stmtSelect->fetch();
+}
 ?>

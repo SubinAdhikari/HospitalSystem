@@ -2,17 +2,16 @@
 
 <!-- HEADER HERE -->
 <?php
-
-
-
-
 include 'layouts/header.php';
 
+if(isset($_POST['searchbtn'])){
+    $todayDate=$_POST['date_for_leave'];
+   $acceptedRequest=ViewAcceptedLeaveRequestForDoctorPanel($conn,$todayDate,$_SESSION['doctor']['name']);
+//    print_r($acceptedRequest);
+   $rejectedRequest=ViewRejectedLeaveRequestForDoctorPanel($conn,$todayDate,$_SESSION['doctor']['name']);
+}
 
-// session_start();
-// 	if(!checkUserLogin()){ 
-// 	Redirect('loginReceptionist.php');
-// } 
+
 ?>
    <!-- BEGIN CONTAINER -->
    <div id="container" class="row-fluid">
@@ -58,7 +57,7 @@ include 'layouts/sidebar.php';
                    <!-- END THEME CUSTOMIZER-->
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                    Admin Dashboard
+                   View Application Status
                    </h3>
                    <ul class="breadcrumb">
                        <li>
@@ -70,7 +69,7 @@ include 'layouts/sidebar.php';
                            <span class="divider">/</span>
                        </li>
                        <li class="active">
-                        Admin Dashboard
+                       View Application Status
                        </li>
                        <li class="pull-right search-wrap">
                            <form action="search_result.html" class="hidden-phone">
@@ -86,86 +85,90 @@ include 'layouts/sidebar.php';
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row-fluid">
-                <!--BEGIN METRO STATES-->
-                <div class="metro-nav">
-                    <div class="metro-nav-block nav-block-orange">
-                        <a data-original-title="" href="addReceptionist.php">
-                            <i class="icon-user"></i>
-                            <div class="info">321</div>
-                            <div class="status">Add New Receptionist</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-olive">
-                        <a data-original-title="" href="addDoctor.php">
-                            <i class="icon-tags"></i>
-                            <div class="info">+970</div>
-                            <div class="status">Add New Doctor</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-yellow">
-                        <a data-original-title="" href="viewPatientDetails.php">
-                            <i class="icon-comments-alt"></i>
-                            <div class="info">49</div>
-                            <div class="status">View Patient Details</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-green double">
-                        <a data-original-title="" href="viewEmployeesDetails.php">
-                            <i class="icon-eye-open"></i>
-                            <div class="info">+897</div>
-                            <div class="status">View Employees Details</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-red">
-                        <a data-original-title="" href="viewRequestedApplication.php">
-                            <i class="icon-bar-chart"></i>
-                            <div class="info">+288</div>
-                            <div class="status">Requested Leave Application</div>
-                        </a>
-                    </div>
-                </div>
-                <div class="metro-nav">
-                    <div class="metro-nav-block nav-light-purple">
-                        <a data-original-title="" href="feeCollectedTillDate.php">
-                            <i class="icon-shopping-cart"></i>
-                            <div class="info">29</div>
-                            <div class="status">Fee Collected till date</div>
-                        </a>
-                    </div>
-                    <!-- <div class="metro-nav-block nav-light-blue double">
-                        <a data-original-title="" href="#">
-                            <i class="icon-tasks"></i>
-                            <div class="info">$37624</div>
-                            <div class="status">Stock</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-light-green">
-                        <a data-original-title="" href="#">
-                            <i class="icon-envelope"></i>
-                            <div class="info">123</div>
-                            <div class="status">Messages</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-light-brown">
-                        <a data-original-title="" href="#">
-                            <i class="icon-remove-sign"></i>
-                            <div class="info">34</div>
-                            <div class="status">Cancelled</div>
-                        </a>
-                    </div>
-                    <div class="metro-nav-block nav-block-grey ">
-                        <a data-original-title="" href="#">
-                            <i class="icon-external-link"></i>
-                            <div class="info">$53412</div>
-                            <div class="status">Total Profit</div>
-                        </a>
-                    </div> -->
-                </div>
-                <div class="space10"></div>
-                <!--END METRO STATES-->
-            </div>
+            
            
+
+
+
+           
+                            <form method="POST">
+                                 <div class="control-group ">
+                                    <label for="curl" class="control-label">Date For Leave</label>
+                                    <div class="controls">
+                                        <input class="span6 " id="curl" type="date" name="date_for_leave" required/>
+                                        <button class="btn btn-success" name="searchbtn" type="submit">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+<!-- BEGIN ADVANCED TABLE widget-->
+<div class="row-fluid">
+                <div class="span12">
+                <!-- BEGIN EXAMPLE TABLE widget-->
+                <div class="widget red">
+                    <div class="widget-title">
+                        <h4><i class="icon-reorder"></i>Leave Application Status</h4>
+                            <span class="tools">
+                                <a href="javascript:;" class="icon-chevron-down"></a>
+                                <a href="javascript:;" class="icon-remove"></a>
+                            </span>
+                    </div>
+                    <div class="widget-body">
+                        <table class="table table-striped table-bordered" id="sample_1">
+                            <thead>
+                            <tr>
+                                <th class="hidden-phone">Patient name</th>
+                                <th class="hidden-phone">Date For Leave</th>
+                                <th class="hidden-phone">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if(isset($acceptedRequest)){
+
+                                       if($acceptedRequest>0){ 
+                                ?>
+                                
+                            <tr class="odd gradeX">
+                                <td class="hidden-phone"><?php echo $acceptedRequest['doctor_name']; ?></td>
+                                <td class="hidden-phone"><?php echo $acceptedRequest['date_for_leave']; ?></td>
+
+                                <td class="hidden-phone"><span class="label label-success">Accepted</span></td>
+                            </tr>
+                                <?php } }
+                                if(isset($rejectedRequest)){
+                                    if($rejectedRequest>0){
+                                    ?>
+<tr class="odd gradeX">
+                                <td class="hidden-phone"><?php echo $rejectedRequest['doctor_name']; ?></td>
+                                <td class="hidden-phone"><?php echo $rejectedRequest['date_for_leave']; ?></td>
+
+                                <td class="hidden-phone"><span class="label label-danger">Rejected</span></td>
+                            </tr>
+
+                                <?php
+                                }
+                            }
+                               ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE widget-->
+                </div>
+            </div>
+
+            <!-- END ADVANCED TABLE widget-->
+
+
+
+
+
+
+            
 
             <!-- END PAGE CONTENT-->         
          </div>
@@ -211,6 +214,28 @@ include 'layouts/sidebar.php';
    <script src="../ReceptionPanel/js/sparkline-chart.js"></script>
    <script src="../ReceptionPanel/js/home-page-calender.js"></script>
    <script src="../ReceptionPanel/js/home-chartjs.js"></script>
+
+   <!-- END JAVASCRIPTS -->  
+   
+   
+
+   <!-- BEGIN JAVASCRIPTS -->
+   <!-- Load javascripts at bottom, this will reduce page load time -->
+   <script src="../ReceptionPanel/js/jquery.blockui.js"></script>
+   <!-- ie8 fixes -->
+   <!--[if lt IE 9]>
+   <script src="js/excanvas.js"></script>
+   <script src="js/respond.js"></script>
+   <![endif]-->
+   <script type="text/javascript" src="../ReceptionPanel/assets/uniform/jquery.uniform.min.js"></script>
+   <script type="text/javascript" src="../ReceptionPanel/assets/data-tables/jquery.dataTables.js"></script>
+   <script type="text/javascript" src="../ReceptionPanel/assets/data-tables/DT_bootstrap.js"></script>
+
+
+   <!--common script for all pages-->
+
+   <!--script for this page only-->
+   <script src="../ReceptionPanel/js/dynamic-table.js"></script>
 
    <!-- END JAVASCRIPTS -->   
 </body>

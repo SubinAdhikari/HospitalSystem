@@ -3,6 +3,12 @@
 <!-- HEADER HERE -->
 <?php
 include 'layouts/header.php';
+$getLastIdOfPatient=getlastIdOfPatient($conn);
+// print_r($getLastIdOfPatient);
+$lastReg_no=0;
+foreach($getLastIdOfPatient as $key){
+    $lastReg_no= $key;
+}
 ?>
    <!-- BEGIN CONTAINER -->
    <div id="container" class="row-fluid">
@@ -94,6 +100,12 @@ include 'layouts/sidebar.php';
                             <!-- BEGIN FORM-->
 
                             <form class="cmxform form-horizontal" id="commentForm" method="POST" action="">
+                            <div class="control-group ">
+                                    <label for="cname" class="control-label">Registration Number</label>
+                                    <div class="controls">
+                                        <input class="span6 " id="cname"  type="text" value="<?php echo $lastReg_no+1; ?>" readonly />
+                                    </div>
+                                </div>
                                 <div class="control-group ">
                                     <label for="cname" class="control-label">Name (required)</label>
                                     <div class="controls">
